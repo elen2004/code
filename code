@@ -1,0 +1,140 @@
+#include <stdio.h>
+#include <string.h>
+
+// Function to recommend products for acne-prone skin
+void recommend_for_acne() {
+    printf("For acne-prone skin, consider using a mild cleanser, an acne treatment solution, and oil-free moisturizers.\n");
+}
+
+// Function to recommend products for sensitive skin
+void recommend_for_sensitive_skin() {
+    printf("For sensitive skin, choose products labeled as 'for sensitive skin' and perform a patch test before regular use.\n");
+}
+
+// Function to recommend products for fine lines or wrinkles
+void recommend_for_fine_lines() {
+    printf("To address fine lines or wrinkles, consider incorporating anti-aging serums and moisturizers with retinol.\n");
+}
+
+// Function to recommend products for dark spots or hyperpigmentation
+void recommend_for_dark_spots() {
+    printf("For concerns about dark spots or hyperpigmentation, look for products containing ingredients like vitamin C or niacinamide.\n");
+}
+
+// Function to recommend products based on selected product category
+void recommend_based_on_category(char* product_category, int frequency_of_use, float budget) {
+    printf("For %s, we recommend the 'Revitalizing Glow Serum' from our production, suitable for %s use within your budget of $%.2f.\n", product_category,
+           (frequency_of_use == 1) ? "daily" : "weekly", budget);
+}
+
+// Function to gather additional user preferences
+void gather_additional_preferences(char* allergies) {
+    printf("Do you have any allergies or sensitivities to specific ingredients? Enter details: ");
+    scanf("%s", allergies);
+}
+
+// Updated main recommendation function with additional features
+void recommend_skincare_product_extended(int age, char* skin_type, int has_acne, int is_sensitive_skin, int has_fine_lines,
+                                         int has_dark_spots, int is_moist_climate, int used_products_before) {
+    printf("\nBased on your input, here is your extended skincare product recommendation:\n");
+
+    // Age-based recommendations
+    if (age >= 18 && age < 40) {
+        printf("Considering your age group, we recommend a balanced skincare routine.\n");
+    } else if (age >= 40) {
+        printf("As you are 40 or older, consider using anti-aging products to maintain skin health.\n");
+    }
+
+    // Skin type-based recommendations
+    if (has_acne) {
+        recommend_for_acne();
+    } else {
+        if (strcmp(skin_type, "oily") == 0) {
+            printf("For oily skin, we recommend an oil-free moisturizer and a gentle cleanser.\n");
+        } else if (strcmp(skin_type, "dry") == 0) {
+            printf("For dry skin, consider using a hydrating cleanser and a rich moisturizer.\n");
+        } else {
+            printf("For normal skin, a mild cleanser and a balanced moisturizer should work well.\n");
+        }
+    }
+
+    // Additional recommendations for specific skin concerns
+    if (is_sensitive_skin) {
+        recommend_for_sensitive_skin();
+    }
+
+    if (has_fine_lines) {
+        recommend_for_fine_lines();
+    }
+
+    if (has_dark_spots) {
+        recommend_for_dark_spots();
+    }
+
+    // Climate-based recommendations
+    if (is_moist_climate) {
+        printf("Living in a moist climate, it's important to use lightweight, non-comedogenic products to prevent excessive oiliness.\n");
+    } else {
+        printf("In a dry climate, focus on hydrating and moisturizing products to combat dryness and maintain skin hydration.\n");
+    }
+
+    // Consideration of past product usage
+    if (used_products_before) {
+        printf("You mentioned using skincare products before. It's crucial to consider your previous experiences with skincare products when selecting new ones.\n");
+    }
+
+    // New question about the product category
+    char product_category[30];
+    printf("What category of skincare products are you interested in (cleanser, moisturizer, serum, sunscreen)? ");
+    scanf("%s", product_category);
+
+    // Frequency of use and budget input
+    int frequency_of_use;
+    float budget;
+    printf("How frequently do you plan to use the recommended products? (1 for daily, 2 for weekly): ");
+    scanf("%d", &frequency_of_use);
+    printf("What is your budget for skincare products? Enter the amount in dollars: ");
+    scanf("%f", &budget);
+
+    // Additional preferences
+    char allergies[50];
+    gather_additional_preferences(allergies);
+
+    // Provide recommendations based on the selected product category
+    recommend_based_on_category(product_category, frequency_of_use, budget);
+}
+
+int main() {
+    int user_age;
+    char user_skin_type[20];
+    int user_has_acne, user_is_sensitive_skin, user_has_fine_lines, user_has_dark_spots, user_is_moist_climate, user_used_products_before;
+
+    // Gather user information
+    printf("Enter your age: ");
+    scanf("%d", &user_age);
+
+    printf("Enter your skin type (oily, dry, normal): ");
+    scanf("%s", user_skin_type);
+
+    printf("Do you have acne? (1 for yes, 0 for no): ");
+    scanf("%d", &user_has_acne);
+
+    printf("Do you have sensitive skin? (1 for yes, 0 for no): ");
+    scanf("%d", &user_is_sensitive_skin);
+
+    printf("Do you have fine lines or wrinkles? (1 for yes, 0 for no): ");
+    scanf("%d", &user_has_fine_lines);
+
+    printf("Do you have dark spots or hyperpigmentation? (1 for yes, 0 for no): ");
+    scanf("%d", &user_has_dark_spots);
+
+    printf("Do you live in a moist climate? (1 for yes, 0 for no): ");
+    scanf("%d", &user_is_moist_climate);
+
+    printf("Have you used skincare products before? (1 for yes, 0 for no): ");
+    scanf("%d", &user_used_products_before);
+
+    recommend_skincare_product_extended(user_age, user_skin_type, user_has_acne, user_is_sensitive_skin, user_has_fine_lines, user_has_dark_spots, user_is_moist_climate, user_used_products_before);
+
+    return 0;
+}
